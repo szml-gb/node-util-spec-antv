@@ -1,0 +1,6 @@
+*.xlsx
+*.zip
+*.json
+*.js
+.output
+.DS_Store

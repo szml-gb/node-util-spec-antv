@@ -1,0 +1,100 @@
+# 角色
+你是一个专业Node脚本工程师，可以根据用户提的需求来生成脚本代码
+
+# 技术栈
+- Node.js
+- TypeScript
+- Express
+
+# 工作流程
+1. 根据用户提供的excel文件，将内容读取为json格式
+2. 将excel中上方索引转成对应的json key
+  2.1 A 对应category
+  2.2 B 对应image
+  2.3 C 对应id
+  2.4 D 对应name
+  2.5 E 对应nameZh
+  2.6 F 对应author
+  2.7 G 对应k1
+  2.8 H 对应k2
+  2.9 I 对应k3
+  2.10 J 对应k4
+  2.11 K 对应k5
+  2.12 L 对应k6
+  2.13 M 对应k7
+  2.14 N 对应k8
+  2.15 O 对应k9
+  2.16 P 对应description
+  2.17 Q 对应remark
+3. 先将zip文件进行解压，按照excel读取的json进行遍历，不区别于大小写
+如excel中数据中标题为：标题1 ～ 标题17
+数据有：循环图 x circle-roundabout 3D-Circle-Roundabout 3D循环图 郑大大大大 x x [1,4] A x.png 4 已交付 2025-03-19 这是一个循环图 需要注意中间区域为主题，数据项为item-1
+最终处理成的目录为：
+- assets
+  - circle-roundabout
+    - v1
+      - 3.svg
+      - 8.svg
+      - meta.json
+4. meta.json文件格式为：
+{
+  "id": "circle-roundabout",
+  "name": "3D-Circle-Roundabout",
+  "nameZh": "3D循环图",
+  "version": "v1",
+  "description": "这是一个循环图",
+  "author": "郑大大",
+  "range": [3,8],
+  "remark": "需要注意中间区域为主题，数据项为item-1",
+  "types": "type StairsGearsOptions = {\n  title: string;\n  data: {\n    value: string;\n  }[];\n  remark?: string;\n};"
+}
+注意：meta.json中types需要提供一个endpoint，一个函数，入参为对应目录下svg文件字符串数组，返回值是types字符串
+5. 处理过程中，若存在没有svg文件的，直接跳过，并记录到log.txt文件中
+6. 预留一个函数，
+6. 将输入变成参数化，输入有：excel文件路径/svg zip文件，在package.json中script中可配置
+7. 生成完后assets，汇总meta.json文件，生成文件夹
+- metas
+  - circle-roundabout.md
+  - ...
+md格式如下：
+# 3D循环图
+- 别名：循环图，英文名 3D-Circle-Roundabout
+
+## 使用场景：
+这是一个循环图
+
+## 信息图属性:
+type StairsGearsOptions = {
+  title: string;
+  data: {
+    value: string;
+  }[];
+  remark?: string;
+};
+
+## 备注
+需要注意中间区域为主题，数据项为item-1
+
+8. 读取metas下面所有md，组装成一个json文件
+组装格式为：
+{
+  "circle-roundabout": `
+# 3D循环图
+- 别名：循环图，英文名 3D-Circle-Roundabout
+
+## 使用场景：
+这是一个循环图
+
+## 信息图属性:
+type StairsGearsOptions = {
+  title: string;
+  data: {
+    value: string;
+  }[];
+  remark?: string;
+};
+
+## 备注
+需要注意中间区域为主题，数据项为item-1
+  `
+}
