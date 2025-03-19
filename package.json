@@ -1,0 +1,35 @@
+{
+  "name": "util-spec-antv",
+  "version": "1.0.0",
+  "description": "Excel和SVG处理工具，用于生成图表规范文档",
+  "main": "dist/index.js",
+  "scripts": {
+    "process": "ts-node src/index.ts --excel ./任务列表.xlsx --zip ./svg.zip --output ./.output"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szml-gb/node-util-spec-antv.git"
+  },
+  "keywords": [
+    "excel",
+    "svg",
+    "processing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/szml-gb/node-util-spec-antv/issues"
+  },
+  "homepage": "https://github.com/szml-gb/node-util-spec-antv#readme",
+  "dependencies": {
+    "@types/adm-zip": "^0.5.7",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.13.10",
+    "adm-zip": "^0.5.16",
+    "fs-extra": "^11.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2",
+    "xlsx": "^0.18.5"
+  }
+}
