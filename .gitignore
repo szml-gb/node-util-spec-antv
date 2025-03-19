@@ -4,3 +4,5 @@
 *.js
 .output
 .DS_Store
+# 排除node_modules
+node_modules
